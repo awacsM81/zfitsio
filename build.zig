@@ -81,11 +81,6 @@ pub fn build(b: *Build) !void {
         break :blk lib;
     } else null;
 
-    const libs = .{
-        .zlib = zlib,
-        .cfitsio = cfitsio,
-    };
-
     // Setup main library
     const zfitsio_lib = b.addStaticLibrary(.{
         .name = "zfitsio",
@@ -93,7 +88,7 @@ pub fn build(b: *Build) !void {
         .target = target,
         .optimize = optimize,
     });
-    linkLibraries(zfitsio_lib, libs);
+    linkLibraries(zfitsio_lib, .{ .cfitsio = cfitsio, .zlib = zlib });
 
     const docs = b.addInstallDirectory(.{
         .source_dir = zfitsio_lib.getEmittedDocs(),
@@ -121,7 +116,7 @@ pub fn build(b: *Build) !void {
         const test_exe = setupTest(b, name, target, optimize);
         test_exe.root_module.addImport("wrapper", wrapper);
         test_exe.root_module.addImport("zfitsio", zfitsio);
-        linkLibraries(test_exe, libs);
+        linkLibraries(test_exe, .{ .cfitsio = cfitsio, .zlib = zlib });
 
         const run_test = b.addRunArtifact(test_exe);
         try test_steps.append(run_test);
@@ -143,7 +138,7 @@ pub fn build(b: *Build) !void {
         });
 
         exe.linkLibC();
-        linkLibraries(exe, libs);
+        linkLibraries(exe, .{ .cfitsio = cfitsio, .zlib = zlib });
         exe.root_module.addImport("zfitsio", zfitsio);
         examples_step.dependOn(&exe.step);
 
