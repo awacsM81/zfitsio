@@ -24,8 +24,8 @@
     // internet connectivity.
     .dependencies = .{
         .cfitsio = .{
-            .url = "https://github.com/HEASARC/cfitsio/archive/refs/tags/cfitsio4_5_0_20240826.tar.gz",
-            .hash = "12206640d8d65740b10111f5febda8478caf055f19480c4b590211102f40f5ab3d86",
+            .url = "https://github.com/HEASARC/cfitsio/archive/refs/tags/cfitsio-4.6.2.tar.gz",
+            .hash = "N-V-__8AANZZ2QB31uwcA3ZZrBgCnPMl6cN5DEKahfUz3RIF",
         },
         .zlib = .{
             .url = "https://github.com/madler/zlib/releases/download/v1.3.1/zlib-1.3.1.tar.gz",
